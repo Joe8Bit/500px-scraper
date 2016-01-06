@@ -1,0 +1,17 @@
+{
+  "name": "500px-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "500px": "^0.5.1",
+    "dotenv": "^1.2.0",
+    "jsonfile": "^2.2.3",
+    "s3": "^4.4.0"
+  }
+}
