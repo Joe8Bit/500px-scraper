@@ -33,3 +33,7 @@ Running the task locally
 ```
 ./bin/500px_run
 ``` 
+
+## Notes
+
+You will see that I am using my own fork of Void, this is due to the mainline version not firing an event when it's done (why not? No idea), mine does.
