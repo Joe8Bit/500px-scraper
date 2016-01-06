@@ -31,21 +31,21 @@ const s3client = s3.createClient({
 api500px.photos.getByUserId(FIVEHUNDREDPX_USERID, null, (error, results) => {
   if (error) {
     throw new Error(error);
-    exit();
+    process.exit();
   } else {
     jsonfile.writeFile(JSON_LOCATION, results, (error) => {
       if (error) {
         throw new Error(error);
-        exit();
+        process.exit();
       } else {
         let uploader = s3client.uploadFile(UPLOAD_PARAMS);
         uploader.on('error', (error) => {
           throw new Error(error);
-          exit();
+          process.exit();
         });
         uploader.on('end', () => {
           console.log('Uploading finished');
-          exit();
+          process.exit();
         });
       }
     });
