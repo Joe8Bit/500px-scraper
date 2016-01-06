@@ -3,7 +3,7 @@
 
 if (!process.env.IS_PROD) require('dotenv').load();
 
-const handleError = require('../lib/error');
+const handleError = require('../lib/error').handleError;
 const fivehundredpix = require('../lib/500px');
 const cache = require('../lib/cache').cache;
 const upload = require('../lib/upload');

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/tap/bin/run.js test/*.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -12,5 +15,9 @@
     "request": "^2.67.0",
     "s3": "^4.4.0",
     "void": "git+https://git@github.com/joe8bit/void.git"
+  },
+  "devDependencies": {
+    "proxyquire": "^1.7.3",
+    "tap": "^5.0.0"
   }
 }
