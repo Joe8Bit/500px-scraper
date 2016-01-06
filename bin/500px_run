@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 'use strict';
 
-require('dotenv').load();
+if (!process.env.IS_PROD) require('dotenv').load();
 
 const fivehundredpx = require('500px');
 const jsonfile = require('jsonfile'); 
