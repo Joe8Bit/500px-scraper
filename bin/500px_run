@@ -8,6 +8,7 @@ const jsonfile = require('jsonfile');
 const path = require('path');
 const s3 = require('s3');
 const Void = require('void');
+const request = require('request');
 
 const FIVEHUNDREDPX_CONSUMER_KEY = process.env.FIVEHUNDREDPX_CONSUMER_KEY;
 const FIVEHUNDREDPX_USERID = 13697373;
@@ -29,23 +30,52 @@ const s3client = s3.createClient({
   }
 });
 
+function handleError(err) {
+  sendEmail(err).then(throwError);
+}
+
+function sendEmail(err) {
+  return new Promise((resolve, reject) => {
+    request({
+      url: `https://api:${process.env.MAILGUN_API_KEY}@api.mailgun.net/v2/sandboxa4feab1c79724ae08c512bd144dc9873.mailgun.org/messages`,
+      method: 'POST',
+      form: {
+        from: '500px_failure_reporter@joe8bit.com',
+        to: 'joe8bit+website@gmail.com',
+        subject: 'Error updating /photos/data.json',
+        html: `<p>The following error occured at ${new Date}:</p> <p>${err.toString()}</p>`
+      }
+    }, (error, response, body) => {
+      if (error) {
+        handleError(error);
+      } else {
+        resolve(err);
+      }
+    });
+  });
+}
+
+function throwError(err) {
+  console.error(err);
+  throw new Error(err);
+}
+
 api500px.photos.getByUserId(FIVEHUNDREDPX_USERID, {image_size: 600}, (error, results) => {
   if (error) {
-    throw new Error(error);
+    handleError(error);
     process.exit();
   } else {
     jsonfile.writeFile(JSON_LOCATION, results, (error) => {
       if (error) {
-        throw new Error(error);
+        handleError(error);
         process.exit();
       } else {
         let uploader = s3client.uploadFile(UPLOAD_PARAMS);
         uploader.on('error', (error) => {
-          throw new Error(error);
+          handleError(error);
           process.exit();
         });
         uploader.on('end', () => {
-          console.log('Uploading finished');
           let v = new Void({
             paths: [
               '/photos/data.json'
