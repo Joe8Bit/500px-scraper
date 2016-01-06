@@ -2,7 +2,7 @@
 
 This was created for an annoyingly specific reason.
 
-I wanted to add a 500px 'photofeed' to my website (at [http://joe8bit/com/photos](http://joe8bit/com/photos)) but the 500px API is auth'd when requesting the photos or a particular user. Grr.
+I wanted to add a 500px 'photofeed' to my website (at [http://joe8bit.com/photos/](http://joe8bit.com/photos/)) but the 500px API is auth'd when requesting the photos or a particular user. Grr.
 
 So this project was born. In short it does the following:
 
