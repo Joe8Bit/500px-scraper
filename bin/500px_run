@@ -28,7 +28,7 @@ const s3client = s3.createClient({
   }
 });
 
-api500px.photos.getByUserId(FIVEHUNDREDPX_USERID, null, (error, results) => {
+api500px.photos.getByUserId(FIVEHUNDREDPX_USERID, {image_size: 600}, (error, results) => {
   if (error) {
     throw new Error(error);
     process.exit();
