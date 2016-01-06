@@ -9,26 +9,12 @@ const cache = require('../lib/cache').cache;
 const upload = require('../lib/upload');
 const invalidate = require('../lib/invalidate');
 
-fivehundredpix((error, results) => {
-  if (error) {
-    handleError(error);
+fivehundredpix()
+  .then(cache)
+  .then(upload)
+  .then(invalidate)
+  .then(() => {
+    console.log('Process complete');
     process.exit();
-  } else {
-    cache(results, (error) => {
-      if (error) {
-        handleError(error);
-      } else {
-        upload((error) => {
-          if (error) {
-            handleError(error);
-          } else {
-            invalidate(() => {
-              console.log('Process complete');
-              process.exit();
-            });
-          }
-        });
-      }
-    });
-  }
-});
+  })
+  .catch(handleError);
